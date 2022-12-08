@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { StyledButton, StyledDiv } from "../styles/GlobalStyles";
 import MovioInfo from "./MovieInfo";
 import ReservationForm from "./ReservationForm";
+import Seat from "./Seat";
 
-export default function Seats() {
+export default function Seats({selected, setSelected}) {
     const MOCKSEATS = {
         "id": 1,
         "name": "15:00",
@@ -83,7 +84,7 @@ export default function Seats() {
             {
                 "id": 13,
                 "name": "13",
-                "isAvailable": true,
+                "isAvailable": false,
             },
             {
                 "id": 14,
@@ -98,7 +99,7 @@ export default function Seats() {
             {
                 "id": 16,
                 "name": "16",
-                "isAvailable": true,
+                "isAvailable": false,
             },
             {
                 "id": 17,
@@ -277,19 +278,19 @@ export default function Seats() {
             <StyledDiv>
                 <h1>Selecione o(s) assento(s)</h1>
                 <SeatsDiv>
-                    {MOCKSEATS.seats.map((seat) => (<SeatButton key={seat.id} disabled={!seat.isAvailable}>{seat.name}</SeatButton>))}
+                    {MOCKSEATS.seats.map((seat) => (<Seat selected={selected} setSelected={setSelected} name={seat.name} isAvailable={seat.isAvailable} key={seat.id} />) )}
                 </SeatsDiv>
                 <Legend>
                     <div>
-                        <Selected></Selected>
+                        <MockSeat backgroundColor="#1AAE9E;" borderColor="#0E7D71;"></MockSeat>
                         <p>Selecionado</p>
                     </div>
                     <div>
-                        <SeatButton></SeatButton>
+                        <MockSeat backgroundColor="#c3cfd9;" borderColor="#808F9D;"></MockSeat>
                         <p>Disponível</p>
                     </div>
                     <div>
-                        <SeatButton disabled></SeatButton>
+                        <MockSeat disabled></MockSeat>
                         <p>Indisponível</p>
                     </div>
                 </Legend>
@@ -315,23 +316,6 @@ const SeatsDiv = styled.div`
     justify-content: space-between;
 `;
 
-const SeatButton = styled.button`
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    border: 1px solid #808F9D;
-    background-color: #c3cfd9;
-    margin: 0px 3px;
-    text-align: center;
-    font-size: 11px;
-    cursor: pointer;
-    &:disabled{
-        background: #FBE192;
-        border: 1px solid #F7C52B;
-        color: #000;
-    }
-`;
-
 const Legend = styled.div`
     display: flex;
     justify-content: space-between;
@@ -347,13 +331,17 @@ const Legend = styled.div`
     }
 `;
 
-const Selected = styled.button`
+const MockSeat = styled.button`
     width: 26px;
     height: 26px;
     border-radius: 50%;
-    border: 1px solid #808F9D;
-    background: #1AAE9E;
-    border: 1px solid #0E7D71;
+    background: ${props => props.backgroundColor};
+    border: 1px solid ${props => props.borderColor};
+    &:disabled{
+        background: #FBE192;
+        border: 1px solid #F7C52B;
+        color: #000;
+    }
 `;
 
 const FormDiv = styled.div`

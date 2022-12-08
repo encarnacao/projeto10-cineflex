@@ -29,10 +29,9 @@ export const GlobalStyle = createGlobalStyle`
     }
     body {
         line-height: 1;
-        background-color: #DFE6ED;
         font-family: 'Roboto', sans-serif;
         margin-top: 67px;
-        margin-bottom: 117px;
+        margin-bottom: 120px;
     }
     ol, ul {
         list-style: none;
@@ -74,7 +73,7 @@ export const StyledButton = styled.button`
 
 export const StyledDiv = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;

@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { StyledDiv } from "../styles/GlobalStyles";
 import styled from "styled-components";
 import Movie from "./Movie";
+import { useEffect } from "react";
 
-export default function Main() {
+export default function Main({setSelected}) {
     const MOCKMOVIES = [
         {
             id: 1,
@@ -27,6 +28,10 @@ export default function Main() {
             releaseDate: "2020-09-29T00:00:00.000Z",
         }
     ];
+    useEffect(()=>{
+        //Reset caso volte a página
+        setSelected([]); 
+    }, [setSelected]) //Usar lista de dependência vazia faz o eslint chiar
 
     return (
         <>

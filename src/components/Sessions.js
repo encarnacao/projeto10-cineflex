@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import { StyledDiv } from "../styles/GlobalStyles";
 import MovioInfo from "./MovieInfo";
 import Session from "./Session";
 
-export default function Sessions() {
+export default function Sessions({ setSelected }) {
     const MOCKSESSIONS = {
         "id": 1,
         "title": "2067",
@@ -132,12 +133,15 @@ export default function Sessions() {
             }
         ]
     }
-
+    useEffect(() => {
+        //Reset caso volte a página
+        setSelected([]); 
+    }, [setSelected]);
     return (
         <>
             <StyledDiv>
                 <h1>Selecione o horário</h1>
-                {MOCKSESSIONS.days.map((day) => (<Session weekday={day.weekday} date={day.date} showtimes={day.showtimes} key={day.id}/>))}
+                {MOCKSESSIONS.days.map((day) => (<Session weekday={day.weekday} date={day.date} showtimes={day.showtimes} key={day.id} />))}
             </StyledDiv>
             <MovioInfo posterURL={MOCKSESSIONS.posterURL} title={MOCKSESSIONS.title} />
         </>
