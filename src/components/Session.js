@@ -18,12 +18,12 @@ const SessionDiv = styled.div`
     flex-direction: column;
     width: 100vw;
     padding: 0 25px;
+    margin-top: 30px;
     > h1{
         font-size: 20px;
         margin-bottom: 20px;
     }
     > div{
         display: flex;
-        margin-bottom: 20px;
     }
 `;

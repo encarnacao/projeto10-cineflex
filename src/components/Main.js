@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { StyledDiv } from "../styles/GlobalStyles";
 import styled from "styled-components";
 import Movie from "./Movie";
 
@@ -29,38 +30,23 @@ export default function Main() {
 
     return (
         <>
-            <MovieSelectionDiv>
+            <StyledDiv>
                 <h1>Selecione o filme</h1>
                 <MovieList>
                     {MOCKMOVIES.map((movie) => (
-                        <Link to={`/sessions/${movie.id}`} key={movie.id}>
-                            <Movie posterURL={movie.posterURL} title={movie.title} id={movie.id} />
+                        <Link to={`/sessoes/${movie.id}`} key={movie.id}>
+                            <Movie posterURL={movie.posterURL} title={movie.title}/>
                         </Link>
                     ))}
                 </MovieList>
-            </MovieSelectionDiv>
+            </StyledDiv>
         </>
     );
 }
-const MovieSelectionDiv = styled.div`
-    width: 100%;
-    height: 100vh;
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    > h1{
-        font-size: 24px;
-        color: #293845;
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
-`;
 
 const MovieList = styled.div`
     display: flex;
     flex-wrap: wrap;
-    margin: 0 auto;
+    margin: 30px auto 0 auto;
     max-width: 350px;
 `;

@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import Movie from "./Movie";
+import { StyledDiv } from "../styles/GlobalStyles";
 import MovioInfo from "./MovieInfo";
 import Session from "./Session";
 
@@ -136,29 +135,12 @@ export default function Sessions() {
 
     return (
         <>
-            <SessionsDiv>
+            <StyledDiv>
                 <h1>Selecione o horário</h1>
                 {MOCKSESSIONS.days.map((day) => (<Session weekday={day.weekday} date={day.date} showtimes={day.showtimes} key={day.id}/>))}
-            </SessionsDiv>
-            <MovioInfo posterURL={MOCKSESSIONS.posterURL} title={MOCKSESSIONS.title} id={MOCKSESSIONS.id}/>
+            </StyledDiv>
+            <MovioInfo posterURL={MOCKSESSIONS.posterURL} title={MOCKSESSIONS.title} />
         </>
     );
 }
 
-
-const SessionsDiv = styled.div`
-    width: 100%;
-    height: max(100%,75vh);
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
-    > h1{
-        font-size: 24px;
-        color: #293845;
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
-`;

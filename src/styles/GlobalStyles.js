@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
     a, abbr, acronym, address, big, cite, code,
@@ -31,6 +32,7 @@ const GlobalStyle = createGlobalStyle`
         background-color: #DFE6ED;
         font-family: 'Roboto', sans-serif;
         margin-top: 67px;
+        margin-bottom: 117px;
     }
     ol, ul {
         list-style: none;
@@ -51,5 +53,37 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
 `;
+// O botão e a div serão usados em mais de uma página, decidi colocar no global e exportar
+export const StyledButton = styled.button`
+    width: ${props => props.width};
+    height: ${props => props.height};
+    color: #FFFFFF;
+    background-color: #E8833A;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    > a{
+        color: inherit;
+        text-decoration: none;
+    }
+`;
 
-export default GlobalStyle;
+export const StyledDiv = styled.div`
+    width: 100%;
+    height: 100vh;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    > h1{
+        font-size: 24px;
+        color: #293845;
+        margin-top: 50px;
+
+    }
+`;

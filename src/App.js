@@ -2,6 +2,7 @@ import Main from "./components/Main";
 import styled from "styled-components";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Sessions from "./components/Sessions";
+import Seats from "./components/Seats";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/sessoes/" element={<Sessions />} />
+          <Route path="/sessoes/:movieId" element={<Sessions />} />
+          <Route path="/assentos/:sessionId" element={<Seats />} />
         </Routes>
       </BrowserRouter>
     </div>

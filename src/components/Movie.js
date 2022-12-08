@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export default function Movie({ posterURL, title, id }) {
+export default function Movie({ posterURL, title}) {
     return (
         <MovieDiv>
-            <img src={posterURL} alt={title+id} />
+            <img src={posterURL} alt={title} />
         </MovieDiv>
     );
     }
