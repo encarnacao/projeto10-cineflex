@@ -1,5 +1,7 @@
 import Main from "./components/Main";
 import styled from "styled-components";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Sessions from "./components/Sessions";
 
 function App() {
   return (
@@ -7,7 +9,12 @@ function App() {
       <Header>
         <h1>CINEFLEX</h1>
       </Header>
-      <Main />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/sessoes/" element={<Sessions />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

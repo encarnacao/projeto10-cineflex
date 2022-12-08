@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Movie from "./Movie";
 
@@ -31,7 +32,11 @@ export default function Main() {
             <MovieSelectionDiv>
                 <h1>Selecione o filme</h1>
                 <MovieList>
-                    {MOCKMOVIES.map((movie) => <Movie posterURL={movie.posterURL} title={movie.title} id={movie.id} key={movie.id}  />)}
+                    {MOCKMOVIES.map((movie) => (
+                        <Link to={`/sessions/${movie.id}`} key={movie.id}>
+                            <Movie posterURL={movie.posterURL} title={movie.title} id={movie.id} />
+                        </Link>
+                    ))}
                 </MovieList>
             </MovieSelectionDiv>
         </>
@@ -56,4 +61,6 @@ const MovieSelectionDiv = styled.div`
 const MovieList = styled.div`
     display: flex;
     flex-wrap: wrap;
+    margin: 0 auto;
+    max-width: 350px;
 `;
