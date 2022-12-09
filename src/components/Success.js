@@ -3,24 +3,32 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { StyledButton } from "../styles/GlobalStyles";
+import Error from "./ErrorScreen";
 import Loading from "./Loading";
 
-export default function Success({ info, reservation }) {
+export default function Success({ info, reservation, setBack }) {
     const [sent, setSent] = useState(undefined);
+    const [erro, setErro] = useState(false);
+
+    console.log(reservation);
     useEffect(() => {
-        const reservationFormatted = {...reservation, cpf: reservation.cpf.replace(/[^0-9]/g, "")};
-        console.log(reservationFormatted);
-        axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", reservationFormatted)
+        setBack(1);
+        axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", reservation)
             .then(resp => {
                 console.log(resp.data);
                 setSent(true);
+            })
+            .catch(err => {
+                console.log(err);
+                setErro(true);
             });
     }, [setSent]);
-    
-    if(sent === undefined){
+    if(sent === undefined && !erro){
         return <Loading />;
     }
-
+    if(erro){
+        return <Error />
+    }
     return (
         <SuccessDiv>
             <div>
@@ -34,7 +42,7 @@ export default function Success({ info, reservation }) {
                 {reservation.ids.map((seat, index) => <p key={index}>Assento {seat}</p>)}
                 <h1>Comprador</h1>
                 <p>Nome: {reservation.name}</p>
-                <p>CPF: {reservation.cpf}</p>
+                <p>CPF: {reservation.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}</p>
             </div>
             <Link to="/">
                 <StyledButton width="225px" height="42px">Voltar para Home</StyledButton>

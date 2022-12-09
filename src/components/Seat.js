@@ -11,6 +11,7 @@ export default function Seat({selected, setSelected, name, isAvailable, reservat
         }
     }
     useEffect(()=>{
+        if(selected.length === 0) return;
         setReservation({...reservation, ids: selected});
     },[selected, setReservation]);
 

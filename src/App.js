@@ -1,33 +1,30 @@
 import Main from "./components/Main";
 import styled from "styled-components";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Sessions from "./components/Sessions";
 import Seats from "./components/Seats";
 import { useState } from "react";
 import Success from "./components/Success";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 
 function App() {
-  const [selected,setSelected] = useState([]);
-  const [movieInfo,setMovieInfo] = useState(undefined);
-  const [reservation, setReservation] = useState({
-    ids: [],
-    name: "",
-    cpf: ""
-  });
-
+  const [selected, setSelected] = useState([]);
+  const [back, setBack] = useState(0);
+  const [movieInfo, setMovieInfo] = useState(undefined);
+  const [reservation, setReservation] = useState(undefined);
+  const navigate = useNavigate();
   return (
     <div className="App">
       <Header>
+        <BackButton display={back} onClick={()=>navigate(-1)}/>
         <h1>CINEFLEX</h1>
       </Header>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main setSelected={setSelected}/>} />
-          <Route path="/sessoes/:movieId" element={<Sessions setSelected={setSelected}/>} />
-          <Route path="/assentos/:sessionId" element={<Seats selected={selected} setMovieInfo={setMovieInfo} reservation={reservation} setReservation={setReservation} setSelected={setSelected}/>} />
-          <Route path="/sucesso" element={<Success reservation={reservation} info={movieInfo} />}/>
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main setSelected={setSelected} setBack={setBack} />} />
+        <Route path="/sessoes/:movieId" element={<Sessions setSelected={setSelected} setBack={setBack} />} />
+        <Route path="/assentos/:sessionId" element={<Seats selected={selected} setMovieInfo={setMovieInfo} reservation={reservation} setReservation={setReservation} setSelected={setSelected} setBack={setBack} />} />
+        <Route path="/sucesso" element={<Success reservation={reservation} info={movieInfo} setBack={setBack} />} />
+      </Routes>
     </div>
   );
 }
@@ -49,5 +46,16 @@ const Header = styled.header`
     }
 `;
 
+const BackButton = styled(IoArrowBackCircleOutline)`
+    position: fixed;
+    top: 15px;
+    left: 20px;
+    color: #1e223a;
+    font-size: 40px;
+    cursor: pointer;
+    display: ${props => props.display ? "block" : "none"}
+`;
 
 export default App;
+
+

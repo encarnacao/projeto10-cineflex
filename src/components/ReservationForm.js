@@ -1,17 +1,22 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 export default function ReservationForm({reservation, setReservation}){
-
+    const [cpf, setCpf] = useState("");
     function handleReservation(e){
         setReservation({...reservation, [e.target.name]: e.target.value});
+        if(e.target.name === "cpf"){
+            //aceita apenas numeros
+            setCpf(e.target.value.replace(/\D/g, ""));
+        }
     }
-
+    
     return (
         <FormDiv>
             <h1>Nome do comprador:</h1>
-            <StyledInput type="text" name="name" onChange={handleReservation} placeholder="Digite seu nome..."/>
+            <StyledInput type="text" name="name" onChange={handleReservation} placeholder="Digite seu nome..." required/>
             <h1>CPF do comprador:</h1>
-            <StyledInput type="text" name="cpf" onChange={handleReservation} placeholder="Digite seu CPF..."/>
+            <StyledInput type="text" pattern="\d*" maxLength="11" minLength="11" name="cpf" value={cpf} onChange={handleReservation} placeholder="Digite seu CPF..." required/>
         </FormDiv>
     );
 }

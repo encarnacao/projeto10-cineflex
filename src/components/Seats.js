@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { StyledButton, StyledDiv } from "../styles/GlobalStyles";
 import MovioInfo from "./MovieInfo";
@@ -8,10 +8,17 @@ import ReservationForm from "./ReservationForm";
 import Seat from "./Seat";
 import Loading from "./Loading";
 
-export default function Seats({ selected, setSelected, setMovieInfo, reservation, setReservation }) {
+export default function Seats({ selected, setSelected, setMovieInfo, reservation, setReservation, setBack }) {
     const params = useParams();
     const [seats,setSeats] = useState(undefined);
+    const navigate = useNavigate();
+
     useEffect(() => {
+        //Clear data
+        setReservation(undefined);
+        setSelected([]);
+        /*--------------------*/
+        setBack(1);
         axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${params.sessionId}/seats`)
             .then(resp => {
                 setSeats(resp.data);
@@ -26,7 +33,6 @@ export default function Seats({ selected, setSelected, setMovieInfo, reservation
     if(seats === undefined) {
         return <Loading />;
     }
-
     return (
         <>
             <StyledDiv>
@@ -48,11 +54,12 @@ export default function Seats({ selected, setSelected, setMovieInfo, reservation
                         <p>Indisponível</p>
                     </div>
                 </Legend>
-                <form>
+                <form onSubmit={(e)=> {
+                    e.preventDefault();
+                    navigate("/sucesso")
+                    }}>
                     <ReservationForm reservation={reservation} setReservation={setReservation}/>
-                    <Link to="/sucesso">
-                        <StyledButton width="225px" height="42px">Reservar assento(s)</StyledButton>
-                    </Link>
+                    <StyledButton type="submit" width="225px" height="42px">Reservar assento(s)</StyledButton>
                 </form>
 
             </StyledDiv>
