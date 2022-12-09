@@ -1,12 +1,17 @@
 import styled from "styled-components";
 
-export default function ReservationForm(){
+export default function ReservationForm({reservation, setReservation}){
+
+    function handleReservation(e){
+        setReservation({...reservation, [e.target.name]: e.target.value});
+    }
+
     return (
         <FormDiv>
             <h1>Nome do comprador:</h1>
-            <StyledInput type="text" placeholder="Digite seu nome..."/>
+            <StyledInput type="text" name="name" onChange={handleReservation} placeholder="Digite seu nome..."/>
             <h1>CPF do comprador:</h1>
-            <StyledInput type="text" placeholder="Digite seu CPF..."/>
+            <StyledInput type="text" name="cpf" onChange={handleReservation} placeholder="Digite seu CPF..."/>
         </FormDiv>
     );
 }

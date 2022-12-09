@@ -8,7 +8,12 @@ import Success from "./components/Success";
 
 function App() {
   const [selected,setSelected] = useState([]);
-  const [info,setInfo] = useState(null);
+  const [movieInfo,setMovieInfo] = useState(undefined);
+  const [reservation, setReservation] = useState({
+    ids: [],
+    name: "",
+    cpf: ""
+  });
 
   return (
     <div className="App">
@@ -19,8 +24,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Main setSelected={setSelected}/>} />
           <Route path="/sessoes/:movieId" element={<Sessions setSelected={setSelected}/>} />
-          <Route path="/assentos/:sessionId" element={<Seats selected={selected} setSelected={setSelected}/>} />
-          <Route path="/sucesso" element={<Success info={info} setInfo={setInfo}/>}/>
+          <Route path="/assentos/:sessionId" element={<Seats selected={selected} setMovieInfo={setMovieInfo} reservation={reservation} setReservation={setReservation} setSelected={setSelected}/>} />
+          <Route path="/sucesso" element={<Success reservation={reservation} info={movieInfo} />}/>
         </Routes>
       </BrowserRouter>
     </div>

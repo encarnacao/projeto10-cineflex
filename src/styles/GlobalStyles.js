@@ -84,4 +84,12 @@ export const StyledDiv = styled.div`
     a{
         text-decoration: none;
     }
+    form{
+        width: 100%;
+        padding: 0 25px;
+        margin-top: 40px;
+        button{
+            margin: 20px auto; 
+        }
+    }
 `;

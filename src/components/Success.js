@@ -1,19 +1,26 @@
-import { useEffect } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { StyledButton } from "../styles/GlobalStyles";
+import Loading from "./Loading";
 
-export default function Success({ info, setInfo }) {
+export default function Success({ info, reservation }) {
+    const [sent, setSent] = useState(undefined);
     useEffect(() => {
-        setInfo({
-            movie: "Enola Holmes",
-            date: "24/06/2021",
-            hour: "15:00",
-            seats: [15, 16],
-            name: "João da Silva Sauro",
-            cpf: "123.456.789-00"
-        })
-    }, [setInfo])
+        const reservationFormatted = {...reservation, cpf: reservation.cpf.replace(/[^0-9]/g, "")};
+        console.log(reservationFormatted);
+        axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", reservationFormatted)
+            .then(resp => {
+                console.log(resp.data);
+                setSent(true);
+            });
+    }, [setSent]);
+    
+    if(sent === undefined){
+        return <Loading />;
+    }
+
     return (
         <SuccessDiv>
             <div>
@@ -21,13 +28,13 @@ export default function Success({ info, setInfo }) {
             </div>
             <div>
                 <h1>Filme e sessão</h1>
-                <p>{info.movie}</p>
-                <p>{info.date} {info.hour}</p>
+                <p>{info.title}</p>
+                <p>{info.date} {info.time}</p>
                 <h1>Ingressos</h1>
-                {info.seats.map((seat, index) => <p key={index}>Assento {seat}</p>)}
+                {reservation.ids.map((seat, index) => <p key={index}>Assento {seat}</p>)}
                 <h1>Comprador</h1>
-                <p>Nome: {info.name}</p>
-                <p>CPF: {info.cpf}</p>
+                <p>Nome: {reservation.name}</p>
+                <p>CPF: {reservation.cpf}</p>
             </div>
             <Link to="/">
                 <StyledButton width="225px" height="42px">Voltar para Home</StyledButton>

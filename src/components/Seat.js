@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import styled from "styled-components";
-export default function Seat({selected, setSelected, name, isAvailable}){
+export default function Seat({selected, setSelected, name, isAvailable, reservation, setReservation}){
     const isSelected = selected.includes(name);
     const seatNumber = name.length === 1 ? "0" + name : name;
     function selectSeat(){
@@ -9,6 +10,9 @@ export default function Seat({selected, setSelected, name, isAvailable}){
             setSelected([...selected.filter((seat) => seat !== name)]);
         }
     }
+    useEffect(()=>{
+        setReservation({...reservation, ids: selected});
+    },[selected, setReservation]);
 
     return (
         <SeatButton
