@@ -4,9 +4,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Sessions from "./components/Sessions";
 import Seats from "./components/Seats";
 import { useState } from "react";
+import Success from "./components/Success";
 
 function App() {
   const [selected,setSelected] = useState([]);
+  const [info,setInfo] = useState(null);
+
   return (
     <div className="App">
       <Header>
@@ -17,6 +20,7 @@ function App() {
           <Route path="/" element={<Main setSelected={setSelected}/>} />
           <Route path="/sessoes/:movieId" element={<Sessions setSelected={setSelected}/>} />
           <Route path="/assentos/:sessionId" element={<Seats selected={selected} setSelected={setSelected}/>} />
+          <Route path="/sucesso" element={<Success info={info} setInfo={setInfo}/>}/>
         </Routes>
       </BrowserRouter>
     </div>

@@ -65,10 +65,6 @@ export const StyledButton = styled.button`
     align-items: center;
     justify-content: center;
     border: none;
-    > a{
-        color: inherit;
-        text-decoration: none;
-    }
 `;
 
 export const StyledDiv = styled.div`
@@ -84,5 +80,8 @@ export const StyledDiv = styled.div`
         color: #293845;
         margin-top: 50px;
 
+    }
+    a{
+        text-decoration: none;
     }
 `;

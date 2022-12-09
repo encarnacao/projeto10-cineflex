@@ -26,4 +26,7 @@ const SessionDiv = styled.div`
     > div{
         display: flex;
     }
+    a{
+        text-decoration: none;
+    }
 `;

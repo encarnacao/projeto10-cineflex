@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 export default function Showtime({ id, name }) {
   return (
-    <StyledButton width="83px" height="43px">
-      <Link to={`/assentos/${id}`}>
-        <p>{name}</p>
-      </Link>
-    </StyledButton>
+    <Link to={`/assentos/${id}`}>
+      <StyledButton width="83px" height="43px">
+        {name}
+      </StyledButton>
+    </Link>
   );
 }
 

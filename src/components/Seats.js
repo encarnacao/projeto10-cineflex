@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { StyledButton, StyledDiv } from "../styles/GlobalStyles";
 import MovioInfo from "./MovieInfo";
 import ReservationForm from "./ReservationForm";
 import Seat from "./Seat";
 
-export default function Seats({selected, setSelected}) {
+export default function Seats({ selected, setSelected }) {
     const MOCKSEATS = {
         "id": 1,
         "name": "15:00",
@@ -278,7 +279,7 @@ export default function Seats({selected, setSelected}) {
             <StyledDiv>
                 <h1>Selecione o(s) assento(s)</h1>
                 <SeatsDiv>
-                    {MOCKSEATS.seats.map((seat) => (<Seat selected={selected} setSelected={setSelected} name={seat.name} isAvailable={seat.isAvailable} key={seat.id} />) )}
+                    {MOCKSEATS.seats.map((seat) => (<Seat selected={selected} setSelected={setSelected} name={seat.name} isAvailable={seat.isAvailable} key={seat.id} />))}
                 </SeatsDiv>
                 <Legend>
                     <div>
@@ -296,7 +297,9 @@ export default function Seats({selected, setSelected}) {
                 </Legend>
                 <FormDiv>
                     <ReservationForm />
-                    <StyledButton width="225px" height="42px">Reservar assento(s)</StyledButton>
+                    <Link to="/sucesso">
+                        <StyledButton width="225px" height="42px">Reservar assento(s)</StyledButton>
+                    </Link>
                 </FormDiv>
 
             </StyledDiv>
@@ -348,7 +351,7 @@ const FormDiv = styled.div`
     width: 100%;
     padding: 0 25px;
     margin-top: 40px;
-    > button{
+    button{
         margin: 20px auto; 
     }
 `;
