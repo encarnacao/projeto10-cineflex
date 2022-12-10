@@ -4,9 +4,13 @@ export default function Seat({selected, setSelected, name, isAvailable, reservat
     const isSelected = selected.includes(name);
     const seatNumber = name.length === 1 ? "0" + name : name;
     function selectSeat(){
+        if(!isAvailable){
+            alert("Esse assento não está disponível");
+            return;
+        }
         if(!isSelected){
             setSelected([...selected,name]);
-        } else{
+        } else if(isSelected){
             setSelected([...selected.filter((seat) => seat !== name)]);
         }
     }
@@ -23,8 +27,8 @@ export default function Seat({selected, setSelected, name, isAvailable, reservat
     return (
         <SeatButton
             onClick={selectSeat}
-            className={isSelected && "selected"}
-            disabled={!isAvailable}
+            className={isSelected?"selected":isAvailable?"":"disabled"}
+            
             data-test="seat"
         >
             {seatNumber}
@@ -45,7 +49,7 @@ const SeatButton = styled.button`
     font-size: 11px;
     cursor: pointer;
     transition: all 0.2s;
-    &:disabled{
+    &.disabled{
         background: #FBE192;
         border: 1px solid #F7C52B;
         color: #000;
