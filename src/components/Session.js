@@ -3,7 +3,7 @@ import Showtime from "./Showtime";
 
 export default function Session({ weekday, date, showtimes}) {
   return (
-      <SessionDiv>
+      <SessionDiv data-test="movie-day">
         <h1>{weekday} - {date}</h1>
         <div>
             {showtimes.map((showtime) => (<Showtime name={showtime.name} id={showtime.id} key={showtime.id}/>))}

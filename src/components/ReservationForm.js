@@ -14,9 +14,9 @@ export default function ReservationForm({reservation, setReservation}){
     return (
         <FormDiv>
             <h1>Nome do comprador:</h1>
-            <StyledInput type="text" name="name" onChange={handleReservation} placeholder="Digite seu nome..." required/>
+            <StyledInput data-test="client-name" type="text" name="name" onChange={handleReservation} placeholder="Digite seu nome..." required/>
             <h1>CPF do comprador:</h1>
-            <StyledInput type="text" pattern="\d*" maxLength="11" minLength="11" name="cpf" value={cpf} onChange={handleReservation} placeholder="Digite seu CPF..." required/>
+            <StyledInput data-test="client-cpf" type="text" pattern="\d*" maxLength="11" minLength="11" name="cpf" value={cpf} onChange={handleReservation} placeholder="Digite seu CPF..." required/>
         </FormDiv>
     );
 }

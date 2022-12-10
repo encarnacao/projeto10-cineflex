@@ -4,7 +4,7 @@ import styled from "styled-components"
 export default function MovioInfo({ posterURL, title, weekday, time }) {
     const chosenSession = weekday !== undefined;
     return (
-        <MovieInfoDiv>
+        <MovieInfoDiv data-test="footer">
             <Movie posterURL={posterURL} title={title}/>
             <div>
                 <h1>{title}</h1>

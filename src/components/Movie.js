@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default function Movie({ posterURL, title}) {
     return (
-        <MovieDiv>
+        <MovieDiv data-test="movie">
             <img src={posterURL} alt={title} />
         </MovieDiv>
     );

@@ -60,7 +60,7 @@ export default function Seats({ selected, setSelected, setMovieInfo, reservation
                     navigate("/sucesso")
                     }}>
                     <ReservationForm reservation={reservation} setReservation={setReservation}/>
-                    <StyledButton type="submit" width="225px" height="42px">Reservar assento(s)</StyledButton>
+                    <StyledButton data-test="book-seat-btn" type="submit" width="225px" height="42px">Reservar assento(s)</StyledButton>
                 </form>
 
             </StyledDiv>

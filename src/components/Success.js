@@ -21,11 +21,11 @@ export default function Success({ info, reservation, setBack }) {
                 console.log(err);
                 setErro(true);
             });
-    }, [setSent,setBack,setErro, reservation]);
-    if(sent === undefined && !erro){
+    }, [setSent, setBack, setErro, reservation]);
+    if (sent === undefined && !erro) {
         return <Loading />;
     }
-    if(erro){
+    if (erro) {
         return <Error />
     }
     return (
@@ -34,17 +34,23 @@ export default function Success({ info, reservation, setBack }) {
                 Pedido feito com sucesso!
             </div>
             <div>
-                <h1>Filme e sessão</h1>
-                <p>{info.title}</p>
-                <p>{info.date} {info.time}</p>
-                <h1>Ingressos</h1>
-                {reservation.ids.map((seat, index) => <p key={index}>Assento {seat}</p>)}
-                <h1>Comprador</h1>
-                <p>Nome: {reservation.name}</p>
-                <p>CPF: {reservation.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}</p>
+                <span data-test="movie-info">
+                    <h1>Filme e sessão</h1>
+                    <p>{info.title}</p>
+                    <p>{info.date} {info.time}</p>
+                </span>
+                <span data-test="seats-info">
+                    <h1>Ingressos</h1>
+                    {reservation.ids.map((seat, index) => <p key={index}>Assento {seat}</p>)}
+                </span>
+                <span data-test="client-info">
+                    <h1>Comprador</h1>
+                    <p>Nome: {reservation.name}</p>
+                    <p>CPF: {reservation.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}</p>
+                </span>
             </div>
             <Link to="/">
-                <StyledButton width="225px" height="42px">Voltar para Home</StyledButton>
+                <StyledButton data-test="go-home-btn" width="225px" height="42px">Voltar para Home</StyledButton>
             </Link>
         </SuccessDiv>
     );

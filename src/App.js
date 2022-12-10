@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App">
       <Header>
-        <BackButton display={back} onClick={()=>navigate(-1)}/>
+        <BackButton data-test="go-home-header-btn" display={back} onClick={()=>navigate(-1)}/>
         <h1>CINEFLEX</h1>
       </Header>
       <Routes>

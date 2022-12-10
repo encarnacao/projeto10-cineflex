@@ -25,6 +25,7 @@ export default function Seat({selected, setSelected, name, isAvailable, reservat
             onClick={selectSeat}
             className={isSelected && "selected"}
             disabled={!isAvailable}
+            data-test="seat"
         >
             {seatNumber}
         </SeatButton>
