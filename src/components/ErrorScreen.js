@@ -3,7 +3,7 @@ import { VscError } from "react-icons/vsc";
 import { StyledButton } from "../styles/GlobalStyles";
 import { useNavigate } from "react-router-dom";
 
-export default function Error() {
+export default function ErrorScreen() {
     const navigate = useNavigate();
     return (
         <ErrorDiv>

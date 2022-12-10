@@ -1,33 +1,13 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { StyledButton } from "../styles/GlobalStyles";
-import Error from "./ErrorScreen";
-import Loading from "./Loading";
 
 export default function Success({ info, reservation, setBack }) {
-    const [sent, setSent] = useState(undefined);
-    const [erro, setErro] = useState(false);
-
-    console.log(reservation);
     useEffect(() => {
         setBack(1);
-        axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", reservation)
-            .then(() => {
-                setSent(true);
-            })
-            .catch(err => {
-                console.log(err);
-                setErro(true);
-            });
-    }, [setSent, setBack, setErro, reservation]);
-    if (sent === undefined && !erro) {
-        return <Loading />;
-    }
-    if (erro) {
-        return <Error />
-    }
+    }, [setBack]);
+
     return (
         <SuccessDiv>
             <div>

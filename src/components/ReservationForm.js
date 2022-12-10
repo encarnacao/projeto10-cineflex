@@ -14,7 +14,6 @@ export default function ReservationForm({reservation, setReservation}){
             setName(e.target.value.replace(/\d/g, '')); //aceita apenas letras
         }
     }
-    console.log(name);
     return (
         <FormDiv>
             <h1>Nome do comprador:</h1>

@@ -11,6 +11,7 @@ import Loading from "./Loading";
 export default function Seats({ selected, setSelected, setMovieInfo, reservation, setReservation, setBack }) {
     const params = useParams();
     const [seats,setSeats] = useState(undefined);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -31,9 +32,26 @@ export default function Seats({ selected, setSelected, setMovieInfo, reservation
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    if(seats === undefined) {
+    if(seats === undefined || loading === true) {
         return <Loading />;
     }
+
+    function handleSubmit(e){
+        e.preventDefault();
+        setLoading(true);
+        axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", reservation)
+            .then(()=>{
+                navigate("/sucesso");
+                setLoading(false);
+            })
+            .catch(()=>{
+                setLoading(false);
+                navigate("/error");
+            });
+
+    }
+
+
     return (
         <>
             <StyledDiv>
@@ -55,10 +73,7 @@ export default function Seats({ selected, setSelected, setMovieInfo, reservation
                         <p>Indisponível</p>
                     </div>
                 </Legend>
-                <form onSubmit={(e)=> {
-                    e.preventDefault();
-                    navigate("/sucesso")
-                    }}>
+                <form onSubmit={handleSubmit}>
                     <ReservationForm reservation={reservation} setReservation={setReservation}/>
                     <StyledButton data-test="book-seat-btn" type="submit" width="225px" height="42px">Reservar assento(s)</StyledButton>
                 </form>

@@ -6,6 +6,7 @@ import Seats from "./components/Seats";
 import { useState } from "react";
 import Success from "./components/Success";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import ErrorScreen from "./components/ErrorScreen";
 
 function App() {
   const [selected, setSelected] = useState([]);
@@ -24,6 +25,7 @@ function App() {
         <Route path="/sessoes/:movieId" element={<Sessions setSelected={setSelected} setBack={setBack} />} />
         <Route path="/assentos/:sessionId" element={<Seats selected={selected} setMovieInfo={setMovieInfo} reservation={reservation} setReservation={setReservation} setSelected={setSelected} setBack={setBack} />} />
         <Route path="/sucesso" element={<Success reservation={reservation} info={movieInfo} setBack={setBack} />} />
+        <Route path="*" element={<ErrorScreen />} />
       </Routes>
     </div>
   );
