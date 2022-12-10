@@ -3,18 +3,22 @@ import { useState } from "react";
 
 export default function ReservationForm({reservation, setReservation}){
     const [cpf, setCpf] = useState("");
+    const [name, setName] = useState("");
     function handleReservation(e){
         setReservation({...reservation, [e.target.name]: e.target.value});
         if(e.target.name === "cpf"){
             //aceita apenas numeros
             setCpf(e.target.value.replace(/\D/g, ""));
         }
+        if(e.target.name === "name"){
+            setName(e.target.value.replace(/\d/g, '')); //aceita apenas letras
+        }
     }
-    
+    console.log(name);
     return (
         <FormDiv>
             <h1>Nome do comprador:</h1>
-            <StyledInput data-test="client-name" type="text" name="name" onChange={handleReservation} placeholder="Digite seu nome..." required/>
+            <StyledInput data-test="client-name" type="text" value={name} name="name" onChange={handleReservation} placeholder="Digite seu nome..." required/>
             <h1>CPF do comprador:</h1>
             <StyledInput data-test="client-cpf" type="text" pattern="\d*" maxLength="11" minLength="11" name="cpf" value={cpf} onChange={handleReservation} placeholder="Digite seu CPF..." required/>
         </FormDiv>
