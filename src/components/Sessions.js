@@ -12,7 +12,8 @@ export default function Sessions({ setSelected, setBack }) {
     useEffect(() => {
         setBack(1);
         axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${params.movieId}/showtimes`)
-            .then(resp => setSessions(resp.data));
+            .then(resp => setSessions(resp.data))
+            .catch(err => console.log(err));
         //Reset caso volte a página
         setSelected([]); 
     }, [setSelected]);

@@ -15,7 +15,8 @@ export default function Main({ setSelected, setBack }) {
         setSelected([]);
         axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
             .then(resp => setMovies(resp.data));
-    }, [setSelected]) //Usar lista de dependência vazia faz o eslint chiar
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []) 
 
     if (movies === undefined) {
         return <Loading />;

@@ -14,15 +14,14 @@ export default function Success({ info, reservation, setBack }) {
     useEffect(() => {
         setBack(1);
         axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", reservation)
-            .then(resp => {
-                console.log(resp.data);
+            .then(() => {
                 setSent(true);
             })
             .catch(err => {
                 console.log(err);
                 setErro(true);
             });
-    }, [setSent]);
+    }, [setSent,setBack,setErro, reservation]);
     if(sent === undefined && !erro){
         return <Loading />;
     }

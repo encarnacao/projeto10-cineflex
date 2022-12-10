@@ -11,10 +11,15 @@ export default function Seat({selected, setSelected, name, isAvailable, reservat
         }
     }
     useEffect(()=>{
-        if(selected.length === 0) return;
+        const reservationCopy = {...reservation};
+        if(selected.length === 0){
+            //Evita que usuário envie pedido de reserva sem assentos selecionados
+            delete reservationCopy.ids;
+            setReservation(reservationCopy);
+            return;
+        };
         setReservation({...reservation, ids: selected});
     },[selected, setReservation]);
-
     return (
         <SeatButton
             onClick={selectSeat}

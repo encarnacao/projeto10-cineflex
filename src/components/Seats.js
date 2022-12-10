@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { StyledButton, StyledDiv } from "../styles/GlobalStyles";
 import MovioInfo from "./MovieInfo";
@@ -28,7 +28,8 @@ export default function Seats({ selected, setSelected, setMovieInfo, reservation
                     time: resp.data.name
                 });
             });
-    }, [setMovieInfo])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     if(seats === undefined) {
         return <Loading />;
