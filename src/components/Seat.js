@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-export default function Seat({selected, setSelected, name, isAvailable, reservation, setReservation}){
-    const isSelected = selected.includes(name);
+export default function Seat({selected, setSelected, name, id, isAvailable, reservation, setReservation}){
+    const isSelected = selected.includes(id);
     const seatNumber = name.length === 1 ? "0" + name : name;
     function selectSeat(){
         if(!isAvailable){
@@ -9,9 +9,9 @@ export default function Seat({selected, setSelected, name, isAvailable, reservat
             return;
         }
         if(!isSelected){
-            setSelected([...selected,name]);
+            setSelected([...selected,id]);
         } else if(isSelected){
-            setSelected([...selected.filter((seat) => seat !== name)]);
+            setSelected([...selected.filter((seat) => seat !== id)]);
         }
     }
     useEffect(()=>{

@@ -39,6 +39,7 @@ export default function Seats({ selected, setSelected, setMovieInfo, reservation
     function handleSubmit(e){
         e.preventDefault();
         setLoading(true);
+        console.log(reservation);
         axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", reservation)
             .then(()=>{
                 navigate("/sucesso");
@@ -57,7 +58,7 @@ export default function Seats({ selected, setSelected, setMovieInfo, reservation
             <StyledDiv>
                 <h1>Selecione o(s) assento(s)</h1>
                 <SeatsDiv>
-                    {seats.seats.map((seat) => (<Seat selected={selected} setSelected={setSelected} reservation={reservation} setReservation={setReservation} name={seat.name} isAvailable={seat.isAvailable} key={seat.id} />))}
+                    {seats.seats.map((seat) => (<Seat selected={selected} setSelected={setSelected} reservation={reservation} setReservation={setReservation} id={seat.id} name={seat.name} isAvailable={seat.isAvailable} key={seat.id} />))}
                 </SeatsDiv>
                 <Legend>
                     <div>
