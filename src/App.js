@@ -13,7 +13,7 @@ function App() {
   const [back, setBack] = useState(0);
   const [movieInfo, setMovieInfo] = useState(undefined);
   const [reservation, setReservation] = useState(undefined);
-  const [seatNumbers, setSeatNumbers] = useState({});
+  const [seatsNumbers, setSeatsNumbers] = useState([]);
 
   const navigate = useNavigate();
   return (
@@ -31,15 +31,10 @@ function App() {
         reservation={reservation} 
         setReservation={setReservation} 
         setSelected={setSelected} 
-        setSeatNumbers={setSeatNumbers}
-        seatNumbers={seatNumbers}
+        setSeatsNumbers={setSeatsNumbers}
+        seatsNumbers={seatsNumbers}
         setBack={setBack} />} />
-        <Route path="/sucesso" element={<Success 
-        reservation={reservation} 
-        info={movieInfo} 
-        seatNumbers={seatNumbers} 
-        selected={selected}
-        setBack={setBack} />} />
+        <Route path="/sucesso" element={<Success reservation={reservation} info={movieInfo} seatsNumbers={seatsNumbers} setBack={setBack} />} />
         <Route path="*" element={<ErrorScreen />} />
       </Routes>
     </div>
