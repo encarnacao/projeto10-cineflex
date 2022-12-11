@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-export default function Seat({selected, setSelected, name, id, isAvailable, reservation, setReservation}){
+export default function Seat({selected, setSelected, name, id, seatsNumbers, setSeatsNumbers, isAvailable, reservation, setReservation}){
     const isSelected = selected.includes(id);
     const seatNumber = name.length === 1 ? "0" + name : name;
     function selectSeat(){
@@ -10,8 +10,10 @@ export default function Seat({selected, setSelected, name, id, isAvailable, rese
         }
         if(!isSelected){
             setSelected([...selected,id]);
+            setSeatsNumbers([...seatsNumbers, seatNumber]);
         } else if(isSelected){
             setSelected([...selected.filter((seat) => seat !== id)]);
+            setSeatsNumbers([...seatsNumbers.filter((seat) => seat !== seatNumber)]);
         }
     }
     useEffect(()=>{
@@ -23,6 +25,7 @@ export default function Seat({selected, setSelected, name, id, isAvailable, rese
             return;
         };
         setReservation({...reservation, ids: selected});
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[selected, setReservation]);
     return (
         <SeatButton

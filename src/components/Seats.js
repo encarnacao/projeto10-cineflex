@@ -8,7 +8,7 @@ import ReservationForm from "./ReservationForm";
 import Seat from "./Seat";
 import Loading from "./Loading";
 
-export default function Seats({ selected, setSelected, setMovieInfo, reservation, setReservation, setBack }) {
+export default function Seats({ selected, setSelected, seatsNumbers, setSeatsNumbers, setMovieInfo, reservation, setReservation, setBack }) {
     const params = useParams();
     const [seats,setSeats] = useState(undefined);
     const [loading, setLoading] = useState(false);
@@ -18,6 +18,7 @@ export default function Seats({ selected, setSelected, setMovieInfo, reservation
         //Clear data
         setReservation(undefined);
         setSelected([]);
+        setSeatsNumbers([]);
         /*--------------------*/
         setBack(1);
         axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${params.sessionId}/seats`)
@@ -58,7 +59,17 @@ export default function Seats({ selected, setSelected, setMovieInfo, reservation
             <StyledDiv>
                 <h1>Selecione o(s) assento(s)</h1>
                 <SeatsDiv>
-                    {seats.seats.map((seat) => (<Seat selected={selected} setSelected={setSelected} reservation={reservation} setReservation={setReservation} id={seat.id} name={seat.name} isAvailable={seat.isAvailable} key={seat.id} />))}
+                    {seats.seats.map((seat) => (<Seat 
+                    selected={selected} 
+                    setSelected={setSelected} 
+                    reservation={reservation} 
+                    setReservation={setReservation} 
+                    id={seat.id} 
+                    name={seat.name} 
+                    seatsNumbers={seatsNumbers}
+                    setSeatsNumbers={setSeatsNumbers}
+                    isAvailable={seat.isAvailable} 
+                    key={seat.id} />))}
                 </SeatsDiv>
                 <Legend>
                     <div>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { StyledButton } from "../styles/GlobalStyles";
 
-export default function Success({ info, reservation, setBack }) {
+export default function Success({ info, reservation, setBack, seatsNumbers }) {
     useEffect(() => {
         setBack(1);
     }, [setBack]);
@@ -21,7 +21,7 @@ export default function Success({ info, reservation, setBack }) {
                 </span>
                 <span data-test="seats-info">
                     <h1>Ingressos</h1>
-                    {reservation.ids.map((seat, index) => <p key={index}>Assento {seat}</p>)}
+                    {seatsNumbers.map((seat, index) => <p key={index}>Assento {seat}</p>)}
                 </span>
                 <span data-test="client-info">
                     <h1>Comprador</h1>

@@ -13,6 +13,8 @@ function App() {
   const [back, setBack] = useState(0);
   const [movieInfo, setMovieInfo] = useState(undefined);
   const [reservation, setReservation] = useState(undefined);
+  const [seatsNumbers, setSeatsNumbers] = useState([]);
+
   const navigate = useNavigate();
   return (
     <div className="App">
@@ -23,8 +25,16 @@ function App() {
       <Routes>
         <Route path="/" element={<Main setSelected={setSelected} setBack={setBack} />} />
         <Route path="/sessoes/:movieId" element={<Sessions setSelected={setSelected} setBack={setBack} />} />
-        <Route path="/assentos/:sessionId" element={<Seats selected={selected} setMovieInfo={setMovieInfo} reservation={reservation} setReservation={setReservation} setSelected={setSelected} setBack={setBack} />} />
-        <Route path="/sucesso" element={<Success reservation={reservation} info={movieInfo} setBack={setBack} />} />
+        <Route path="/assentos/:sessionId" element={<Seats 
+        selected={selected} 
+        setMovieInfo={setMovieInfo} 
+        reservation={reservation} 
+        setReservation={setReservation} 
+        setSelected={setSelected} 
+        setSeatsNumbers={setSeatsNumbers}
+        seatsNumbers={seatsNumbers}
+        setBack={setBack} />} />
+        <Route path="/sucesso" element={<Success reservation={reservation} info={movieInfo} seatsNumbers={seatsNumbers} setBack={setBack} />} />
         <Route path="*" element={<ErrorScreen />} />
       </Routes>
     </div>
