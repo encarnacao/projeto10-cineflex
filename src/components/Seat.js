@@ -1,37 +1,45 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-export default function Seat({selected, setSelected, name, id, seatsNumbers, setSeatsNumbers, isAvailable, reservation, setReservation}){
+export default function Seat({ selected, setSelected, name, id, seatNumbers, setSeatNumbers, isAvailable, seatInfo, setSeatInfo, reservation, setReservation }) {
     const isSelected = selected.includes(id);
     const seatNumber = name.length === 1 ? "0" + name : name;
-    function selectSeat(){
-        if(!isAvailable){
+    function selectSeat() {
+        if (!isAvailable) {
             alert("Esse assento não está disponível");
             return;
         }
-        if(!isSelected){
-            setSelected([...selected,id]);
-            setSeatsNumbers([...seatsNumbers, seatNumber]);
-        } else if(isSelected){
-            setSelected([...selected.filter((seat) => seat !== id)]);
-            setSeatsNumbers([...seatsNumbers.filter((seat) => seat !== seatNumber)]);
+        if (!isSelected) {
+            setSelected([...selected, id]);
+            setSeatNumbers({...seatNumbers, [id]: seatNumber});
+        } else if (isSelected) {
+            const confirmation = window.confirm("Tem certeza que deseja desmarcar esse assento?");
+            if (confirmation) {
+                const seatInfoCopy = { ...seatInfo };
+                const seatNumberCopy = { ...seatNumbers };
+                delete seatNumberCopy[id];
+                delete seatInfoCopy[id];
+                setSeatInfo(seatInfoCopy);
+                setSeatNumbers(seatNumberCopy);
+                setSelected([...selected.filter((seat) => seat !== id)]);
+            }
         }
     }
-    useEffect(()=>{
-        const reservationCopy = {...reservation};
-        if(selected.length === 0){
+    useEffect(() => {
+        const reservationCopy = { ...reservation };
+        if (selected.length === 0) {
             //Evita que usuário envie pedido de reserva sem assentos selecionados
             delete reservationCopy.ids;
             setReservation(reservationCopy);
             return;
         };
-        setReservation({...reservation, ids: selected});
+        setReservation({ ...reservation, ids: selected });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[selected, setReservation]);
+    }, [selected, setReservation]);
     return (
         <SeatButton
             onClick={selectSeat}
-            className={isSelected?"selected":isAvailable?"":"disabled"}
-            
+            className={isSelected ? "selected" : isAvailable ? "" : "disabled"}
+
             data-test="seat"
         >
             {seatNumber}

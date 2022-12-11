@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { StyledButton } from "../styles/GlobalStyles";
+import Buyer from "./Buyer";
 
-export default function Success({ info, reservation, setBack, seatsNumbers }) {
+export default function Success({ info, reservation, selected, setBack, seatNumbers }) {
     useEffect(() => {
         setBack(1);
     }, [setBack]);
@@ -21,12 +22,14 @@ export default function Success({ info, reservation, setBack, seatsNumbers }) {
                 </span>
                 <span data-test="seats-info">
                     <h1>Ingressos</h1>
-                    {seatsNumbers.map((seat, index) => <p key={index}>Assento {seat}</p>)}
+                    {selected.map((seat, index) => <p key={index}>Assento {seatNumbers[seat]}</p>)}
                 </span>
                 <span data-test="client-info">
-                    <h1>Comprador</h1>
-                    <p>Nome: {reservation.name}</p>
-                    <p>CPF: {reservation.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}</p>
+                    <h1>{selected.length>1?"Compradores":"Comprador"}</h1>
+                    {reservation['compradores'].map((buyerInfo) => (
+                        <Buyer seatNumber={seatNumbers[buyerInfo.idAssento]} name={buyerInfo.nome} cpf={buyerInfo.cpf} key={buyerInfo.cpf}/>
+                    ))}
+                    
                 </span>
             </div>
             <Link to="/">
@@ -54,6 +57,11 @@ const SuccessDiv = styled.div`
             font-weight: 700;
             font-size: 24px;
             margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        h2{
+            font-size: 22px;
+            font-weight: 700;
             margin-bottom: 10px;
         }
         p{

@@ -8,17 +8,18 @@ import ReservationForm from "./ReservationForm";
 import Seat from "./Seat";
 import Loading from "./Loading";
 
-export default function Seats({ selected, setSelected, seatsNumbers, setSeatsNumbers, setMovieInfo, reservation, setReservation, setBack }) {
+export default function Seats({ selected, setSelected, seatNumbers, setSeatNumbers, setMovieInfo, reservation, setReservation, setBack }) {
     const params = useParams();
     const [seats,setSeats] = useState(undefined);
     const [loading, setLoading] = useState(false);
+    const [seatInfo, setSeatInfo] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
         //Clear data
         setReservation(undefined);
         setSelected([]);
-        setSeatsNumbers([]);
+        setSeatNumbers([]);
         /*--------------------*/
         setBack(1);
         axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${params.sessionId}/seats`)
@@ -39,9 +40,11 @@ export default function Seats({ selected, setSelected, seatsNumbers, setSeatsNum
 
     function handleSubmit(e){
         e.preventDefault();
+        const compradores = selected.map((seatId)=>({idAssento: seatId, nome: seatInfo[seatId].name, cpf: seatInfo[seatId].cpf}));
+        const newReservation = {...reservation, compradores};
+        setReservation(newReservation);
         setLoading(true);
-        console.log(reservation);
-        axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", reservation)
+        axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", newReservation)
             .then(()=>{
                 navigate("/sucesso");
                 setLoading(false);
@@ -66,9 +69,11 @@ export default function Seats({ selected, setSelected, seatsNumbers, setSeatsNum
                     setReservation={setReservation} 
                     id={seat.id} 
                     name={seat.name} 
-                    seatsNumbers={seatsNumbers}
-                    setSeatsNumbers={setSeatsNumbers}
-                    isAvailable={seat.isAvailable} 
+                    seatNumbers={seatNumbers}
+                    setSeatNumbers={setSeatNumbers}
+                    isAvailable={seat.isAvailable}
+                    seatInfo = {seatInfo}
+                    setSeatInfo = {setSeatInfo} 
                     key={seat.id} />))}
                 </SeatsDiv>
                 <Legend>
@@ -86,7 +91,13 @@ export default function Seats({ selected, setSelected, seatsNumbers, setSeatsNum
                     </div>
                 </Legend>
                 <form onSubmit={handleSubmit}>
-                    <ReservationForm reservation={reservation} setReservation={setReservation}/>
+                    {selected.map((seatId) => (<ReservationForm 
+                    seatInfo={seatInfo}
+                    seatId={seatId}
+                    setSeatInfo={setSeatInfo}
+                    seatNumber={seatNumbers[seatId]}
+                    key={seatId}
+                    />))}
                     <StyledButton data-test="book-seat-btn" type="submit" width="225px" height="42px">Reservar assento(s)</StyledButton>
                 </form>
 
